@@ -23,10 +23,17 @@ namespace EazySDK_UnitTests
         }
 
         [TestMethod]
-        public void TestLastDayOfMonthAcceptable()
+        public void Test99ForLastDayOfMonthAcceptable()
         {
-            bool PaymentDayInMonth = ContractCheck.CheckPaymentDayInMonthIsValid("last day of month");
+            bool PaymentDayInMonth = ContractCheck.CheckPaymentDayInMonthIsValid("99");
             Assert.IsTrue(PaymentDayInMonth);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EazySDK.Exceptions.InvalidParameterException))]
+        public void TestLastDayOfMonthInvalid()
+        {
+            ContractCheck.CheckPaymentDayInMonthIsValid("last day of Month");
         }
 
         [TestMethod]
