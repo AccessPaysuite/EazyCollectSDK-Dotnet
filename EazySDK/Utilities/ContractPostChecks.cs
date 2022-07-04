@@ -143,24 +143,18 @@ namespace EazySDK.Utilities
         {
             try
             {
-                if (int.Parse(PaymentDayInMonth) >= 1 && int.Parse(PaymentDayInMonth) <= 28)
+                if (PaymentDayInMonth == "99" || (int.Parse(PaymentDayInMonth) >= 1 && int.Parse(PaymentDayInMonth) <= 28))
                 {
                     return true;
                 }
                 else
                 {
-                    throw new Exceptions.InvalidParameterException(string.Format("{0} is not a valid PaymentDayInMonth. The PaymentDayInMonth must be between 1 and 28 or be set to 'last day of month'", PaymentDayInMonth));
+                    throw new FormatException(string.Format("{0} is not a valid PaymentDayInMonth. The PaymentDayInMonth must either be between 1 and 28, or be set to 99 to indicate the 'last day of month'", PaymentDayInMonth));
                 }
             }
             catch (FormatException)
             {
-                if (PaymentDayInMonth.ToLower() == "last day of month")
-                {
-                    return true;
-                } else
-                {
-                    throw new Exceptions.InvalidParameterException(string.Format("{0} is not a valid PaymentDayInMonth. The PaymentDayInMonth must be between 1 and 28 or be set to 'last day of month'", PaymentDayInMonth));
-                }
+                throw new Exceptions.InvalidParameterException(string.Format("{0} is not a valid PaymentDayInMonth. The PaymentDayInMonth must either be between 1 and 28, or be set to 99 to indicate the 'last day of month'", PaymentDayInMonth));
             }
         }
 

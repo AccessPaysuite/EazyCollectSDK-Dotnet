@@ -201,7 +201,7 @@ namespace EazySDK
         /// <param name="PaymentAmount">Mandatory if the contract is not ad-hoc. The regular collection amount of the new contract</param>
         /// <param name="FinalAmount">Used if the final collection amount differs from the regular collection amount. Not to be used with ad-hoc contracts</param>
         /// <param name="PaymentMonthInYear">Mandatory for annual contracts. The collection month for annual payments (1-12)</param>
-        /// <param name="PaymentDayInMonth">Mandatory for annual and monthly contracts. The collection day of the month (1-28 || Last day of month)</param>
+        /// <param name="PaymentDayInMonth">Mandatory for annual and monthly contracts. The collection day of the month (1-28 || 99)</param>
         /// <param name="PaymentDayInWeek">Mandatory for weekly contracts. The collection day of the week for weekly schedules (Monday .. Friday)</param>
         /// <param name="TerminationDate">Mandatory if termination type is set to "End on exact date". The termination date of a contract</param>
         /// <param name="AdditionalReference">An additional, search-able reference for the newly created contract</param>
@@ -304,7 +304,7 @@ namespace EazySDK
                     }
                     else
                     {
-                        if (StartDateDateString.Substring(8, 2) != PaymentDayInMonth.PadLeft(2, '0'))
+                        if (PaymentDayInMonth != "99" && StartDateDateString.Substring(8, 2) != PaymentDayInMonth.PadLeft(2, '0'))
                         {
                             if (bool.Parse(Settings.GetSection("contracts")["AutoFixPaymentDayInMonth"]))
                             {
@@ -552,7 +552,7 @@ namespace EazySDK
         /// <param name="PaymentAmount">Mandatory if the contract is not ad-hoc. The regular collection amount for the restated contract/param>
         /// <param name="InitialAmount">Used if the first collection amount is different from the rest.Not to be used on ad-hoc contracts.</param>
         /// <param name="FinalAmount">Used if the final collection amount is different from the rest.Not to be used on ad-hoc contracts.</param>
-        /// <param name="PaymentDayInMonth">The collection day for monthly contracts.Accepts 1-28 or 'last day of month'</param>
+        /// <param name="PaymentDayInMonth">The collection day for monthly contracts. Accepts 1-28 or 99</param>
         /// <param name="PaymentMonthInYear">The collection month for annual contracts. Accepts 1-12</param>
         /// <param name="AdditionalReference">An additional reference for the newly created contract</param>
         /// 
